@@ -12,8 +12,15 @@ public class UserService {
 
     private UserRepository userRepository;
 
-    List<UserDto> findAll(){
+    List<UserDto> findAll() {
         return userRepository.findAll()
+                .stream()
+                .map(UserMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    List<UserDto> findByLastName(String lastName) {
+        return userRepository.findAllByLastNameContainingIgnoreCase(lastName)
                 .stream()
                 .map(UserMapper::toDto)
                 .collect(Collectors.toList());
