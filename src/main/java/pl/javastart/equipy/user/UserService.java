@@ -52,4 +52,13 @@ public class UserService {
     Optional<UserDto> findUserById(Long id) {
         return userRepository.findById(id).map(UserMapper::toDto);
     }
+
+    List<UserAssigmentDto> getUserAssigments(Long userId){
+        return userRepository.findById(userId)
+                .map(User::getAssigments)
+                .orElseThrow(UserNotFoundException::new)
+                .stream()
+                .map(UserAssigmentMapper::toDto)
+                .collect(Collectors.toList());
+    }
 }

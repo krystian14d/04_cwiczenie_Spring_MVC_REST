@@ -61,4 +61,9 @@ public class UserResource {
         return ResponseEntity.ok(updatedUser);
     }
 
+    @GetMapping("/{id}/assigments")
+    public List<UserAssigmentDto> getUserAssigments(@PathVariable Long id){
+        return userService.getUserAssigments(id);
+    }
+
 }
