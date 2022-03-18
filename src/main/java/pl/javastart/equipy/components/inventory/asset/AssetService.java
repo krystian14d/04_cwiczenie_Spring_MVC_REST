@@ -13,7 +13,7 @@ public class AssetService {
     private AssetRepository assetRepository;
     private AssetMapper assetMapper;
 
-    List<AssetDto> findAll() {
+    List<AssetDto> findAllAssets() {
         return assetRepository.findAll()
                 .stream()
                 .map(assetMapper::toDto)
@@ -27,11 +27,28 @@ public class AssetService {
                 .collect(Collectors.toList());
     }
 
-    AssetDto save(AssetDto asset){
+    AssetDto saveAsset(AssetDto asset) {
         Optional<Asset> assetBySerialNumber = assetRepository.findBySerialNumber(asset.getSerialNumber());
         assetBySerialNumber.ifPresent(a -> {
             throw new DuplicateSerialNumberException();
         });
+        return saveAndMapAsset(asset);
+    }
+
+    Optional<AssetDto> findAssetById(Long id) {
+        return assetRepository.findById(id)
+                .map(assetMapper::toDto);
+    }
+
+    AssetDto updateAsset(AssetDto asset) {
+        Optional<Asset> assetBySerialNumber = assetRepository.findBySerialNumber(asset.getSerialNumber());
+        assetBySerialNumber.ifPresent(a -> {
+            throw new DuplicateSerialNumberException();
+        });
+        return saveAndMapAsset(asset);
+    }
+
+    private AssetDto saveAndMapAsset(AssetDto asset) {
         Asset assetEntity = assetMapper.toEntity(asset);
         Asset savedAsset = assetRepository.save(assetEntity);
         return assetMapper.toDto(savedAsset);

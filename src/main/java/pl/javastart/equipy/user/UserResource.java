@@ -25,18 +25,18 @@ public class UserResource {
     private UserService userService;
 
     @GetMapping("")
-    List<UserDto> findAll(@RequestParam(required = false) String lastName) {
+    List<UserDto> findAllUsers(@RequestParam(required = false) String lastName) {
         if (lastName != null)
-            return userService.findByLastName(lastName);
+            return userService.findUserByLastName(lastName);
         else
-            return userService.findAll();
+            return userService.findAllUsers();
     }
 
     @PostMapping("")
-    public ResponseEntity<UserDto> save(@RequestBody UserDto user) {
+    public ResponseEntity<UserDto> saveUser(@RequestBody UserDto user) {
         if (user.getId() != null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Zapisywany obiekt nie może mieć ustawionego id");
-        UserDto savedUser = userService.save(user);
+        UserDto savedUser = userService.saveUser(user);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -46,18 +46,18 @@ public class UserResource {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDto> findById(@PathVariable Long id) {
-        return userService.findById(id)
+    public ResponseEntity<UserDto> findUserById(@PathVariable Long id) {
+        return userService.findUserById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDto> update(@PathVariable Long id, @RequestBody UserDto user) {
+    public ResponseEntity<UserDto> updateUser(@PathVariable Long id, @RequestBody UserDto user) {
         if (!id.equals(user.getId())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Aktualizowany obiekt musi mieć ID zgodne z ID w ścieżce zasobu");
         }
-        UserDto updatedUser = userService.update(user);
+        UserDto updatedUser = userService.updateUser(user);
         return ResponseEntity.ok(updatedUser);
     }
 
