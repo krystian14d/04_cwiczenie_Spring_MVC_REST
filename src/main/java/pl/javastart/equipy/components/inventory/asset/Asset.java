@@ -2,6 +2,7 @@ package pl.javastart.equipy.components.inventory.asset;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.javastart.equipy.components.assigments.Assigment;
 import pl.javastart.equipy.components.inventory.category.Category;
 
 import javax.persistence.Column;
@@ -9,6 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,5 +28,7 @@ public class Asset {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+    @OneToMany(mappedBy = "asset")
+    private List<Assigment> assigments = new ArrayList<>();
 
 }
