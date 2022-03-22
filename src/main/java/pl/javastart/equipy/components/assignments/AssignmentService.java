@@ -2,11 +2,13 @@ package pl.javastart.equipy.components.assignments;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.javastart.equipy.components.inventory.asset.Asset;
 import pl.javastart.equipy.components.inventory.asset.AssetRepository;
 import pl.javastart.equipy.user.User;
 import pl.javastart.equipy.user.UserRepository;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -36,6 +38,16 @@ public class AssignmentService {
         }));
         Assignment savedAssignment = assignmentRepository.save(assignment);
         return AssignmentMapper.toDto(savedAssignment);
+    }
 
+    @Transactional
+    public LocalDateTime finishAssignment(Long assignmentId) {
+        Optional<Assignment> assignment = assignmentRepository.findById(assignmentId);
+        Assignment assignmentEntity = assignment.orElseThrow(AssignmentNotFoundException::new);
+        if (assignmentEntity.getEnd() != null)
+            throw new AssignmentAlreadyFinishedException();
+        else
+            assignmentEntity.setEnd(LocalDateTime.now());
+        return assignmentEntity.getEnd();
     }
 }
