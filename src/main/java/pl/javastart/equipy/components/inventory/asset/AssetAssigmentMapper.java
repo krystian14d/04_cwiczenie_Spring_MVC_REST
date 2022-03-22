@@ -1,17 +1,17 @@
 package pl.javastart.equipy.components.inventory.asset;
 
-import pl.javastart.equipy.components.assigments.Assigment;
+import pl.javastart.equipy.components.assignments.Assignment;
 import pl.javastart.equipy.user.User;
 
 public class AssetAssigmentMapper {
 
-    static AssetAssigmentDto toDto(Assigment assigment){
+    static AssetAssigmentDto toDto(Assignment assignment){
         AssetAssigmentDto dto = new AssetAssigmentDto();
-        dto.setId(assigment.getId());
-        dto.setStart(assigment.getStart());
-        dto.setEnd(assigment.getEnd());
+        dto.setId(assignment.getId());
+        dto.setStart(assignment.getStart());
+        dto.setEnd(assignment.getEnd());
 
-        User user = assigment.getUser();
+        User user = assignment.getUser();
         dto.setUserId(user.getId());
         dto.setFirstName(user.getFirstName());
         dto.setLastName(user.getLastName());

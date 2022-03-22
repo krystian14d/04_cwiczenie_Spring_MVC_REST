@@ -3,7 +3,7 @@ package pl.javastart.equipy.user;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import pl.javastart.equipy.components.assigments.Assigment;
+import pl.javastart.equipy.components.assignments.Assignment;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,5 +28,5 @@ public class User {
     @Column(unique = true)
     private String pesel;
     @OneToMany(mappedBy = "user")
-    private List<Assigment> assigments = new ArrayList<>();
+    private List<Assignment> assignments = new ArrayList<>();
 }

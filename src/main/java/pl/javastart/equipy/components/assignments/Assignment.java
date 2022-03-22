@@ -1,4 +1,4 @@
-package pl.javastart.equipy.components.assigments;
+package pl.javastart.equipy.components.assignments;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-public class Assigment {
+public class Assignment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

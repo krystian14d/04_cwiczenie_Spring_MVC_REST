@@ -56,7 +56,7 @@ public class AssetService {
 
     List<AssetAssigmentDto> getAssetAssignments(Long id){
         return assetRepository.findById(id)
-                .map(Asset::getAssigments)
+                .map(Asset::getAssignments)
                 .orElseThrow(AssetNotFoundException::new)
                 .stream()
                 .map(AssetAssigmentMapper::toDto)

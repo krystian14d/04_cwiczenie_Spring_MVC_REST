@@ -2,7 +2,7 @@ package pl.javastart.equipy.components.inventory.asset;
 
 import lombok.Getter;
 import lombok.Setter;
-import pl.javastart.equipy.components.assigments.Assigment;
+import pl.javastart.equipy.components.assignments.Assignment;
 import pl.javastart.equipy.components.inventory.category.Category;
 
 import javax.persistence.Column;
@@ -29,6 +29,6 @@ public class Asset {
     @JoinColumn(name = "category_id")
     private Category category;
     @OneToMany(mappedBy = "asset")
-    private List<Assigment> assigments = new ArrayList<>();
+    private List<Assignment> assignments = new ArrayList<>();
 
 }

@@ -55,7 +55,7 @@ public class UserService {
 
     List<UserAssigmentDto> getUserAssigments(Long userId){
         return userRepository.findById(userId)
-                .map(User::getAssigments)
+                .map(User::getAssignments)
                 .orElseThrow(UserNotFoundException::new)
                 .stream()
                 .map(UserAssigmentMapper::toDto)
